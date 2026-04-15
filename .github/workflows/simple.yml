@@ -1,4 +1,4 @@
-name: Docker Build Pipeline
+name: Check Docker Version
 
 on:
   push:
@@ -6,27 +6,9 @@ on:
       - main
 
 jobs:
-  docker-build:
+  check-docker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Step 1: Install Docker (usually pre-installed, but ensured here)
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-
-      # Step 2: Start Docker service
-      - name: Start Docker
-        run: sudo systemctl start docker
-
-      # Step 3: Verify Docker version
-      - name: Check Docker version
+      - name: Show Docker version
         run: docker --version
-
-      # Step 4: Build Docker image
-      - name: Build Docker image
-        run: docker build -t my-app:latest .
